@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入PWA的manifest配置 -->
+  <link rel="manifest" href="./manifest.json">
+  <!-- 主题色，和manifest里的theme_color对应 -->
+  <meta name="theme-color" content="#2196F3">
+  <title>我的第一个PWA</title>
+  <style>
+    body { text-align: center; padding: 50px; font-family: sans-serif; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Hello PWA 👋</h1>
+  <p>当前时间：<span id="time"></span></p>
+  <button onclick="alert('PWA按钮生效啦')">点我测试</button>
+
+  <!-- 引入后面用来注册Service Worker的脚本 -->
+  <script src="/app.js"></script>
+  <script>
+    // 显示当前时间，用来测试离线后内容是否缓存成功
+    document.getElementById('time').textContent = new Date().toLocaleString();
+  </script>
+</body>
+</html>
