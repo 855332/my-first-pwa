@@ -1,28 +1,125 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 引入PWA的manifest配置 -->
-  <link rel="manifest" href="./manifest.json">
-  <!-- 主题色，和manifest里的theme_color对应 -->
-  <meta name="theme-color" content="#2196F3">
-  <title>我的第一个PWA</title>
-  <style>
-    body { text-align: center; padding: 50px; font-family: sans-serif; }
-    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#8b1a1a">
+<title>朱墙玉碎 · 深宫计分牌</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <h1>Hello PWA 👋</h1>
-  <p>当前时间：<span id="time"></span></p>
-  <button onclick="alert('PWA按钮生效啦')">点我测试</button>
+<div class="app">
 
-  <!-- 引入后面用来注册Service Worker的脚本 -->
-  <script src="./app.js"></script>
-  <script>
-    // 显示当前时间，用来测试离线后内容是否缓存成功
-    document.getElementById('time').textContent = new Date().toLocaleString();
-  </script>
+  <header class="title-bar">
+    <h1 class="game-title"><span class="t-red">朱墙</span><span class="t-dot">&#10022;</span><span class="t-jade">玉碎</span></h1>
+    <p class="subtitle">雪染深宫 · 线下剧情计分牌</p>
+  </header>
+
+  <main class="card">
+
+    <div class="portrait-wrap">
+      <button class="arrow arrow-left" id="prevBtn" aria-label="上一个角色">
+        <svg viewBox="0 0 24 24" width="22" height="22"><polygon points="15,4 8,12 15,20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="portrait-frame" id="portraitFrame">
+        <img id="portrait" src="./susu_fei.png" alt="角色立绘">
+        <div class="glow"></div>
+      </div>
+
+      <button class="arrow arrow-right" id="nextBtn" aria-label="下一个角色">
+        <svg viewBox="0 0 24 24" width="22" height="22"><polygon points="9,4 16,12 9,20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="name-row">
+      <span class="char-name" id="charName">素素</span>
+      <span class="char-title" id="charTitle"></span>
+    </div>
+    <p class="char-desc" id="charDesc"></p>
+
+    <div class="dots" id="dots"></div>
+
+    <section class="stat">
+      <div class="stat-head">
+        <span class="stat-label">&#10084; 生命值</span>
+        <span class="stat-value hp" id="hpValue">3</span>
+      </div>
+      <div class="stat-btns">
+        <button data-stat="hp" data-d="-1">-1</button>
+        <button data-stat="hp" data-d="1">+1</button>
+        <button data-stat="hp" data-d="-3">-3</button>
+        <button data-stat="hp" data-d="3">+3</button>
+        <button data-stat="hp" data-d="-5">-5</button>
+        <button data-stat="hp" data-d="5">+5</button>
+      </div>
+    </section>
+
+    <section class="stat">
+      <div class="stat-head">
+        <span class="stat-label">&#10084; 皇帝好感度</span>
+        <span class="stat-value favor" id="favorValue">70</span>
+      </div>
+      <div class="stat-btns">
+        <button data-stat="favor" data-d="-5">-5</button>
+        <button data-stat="favor" data-d="5">+5</button>
+        <button data-stat="favor" data-d="-10">-10</button>
+        <button data-stat="favor" data-d="10">+10</button>
+        <button data-stat="favor" data-d="-15">-15</button>
+        <button data-stat="favor" data-d="15">+15</button>
+      </div>
+    </section>
+
+    <section class="stat">
+      <div class="stat-head">
+        <span class="stat-label">&#127991; 金钱</span>
+        <span class="stat-value money"><span id="moneyValue">0</span> 两</span>
+      </div>
+      <div class="stat-btns">
+        <button data-stat="money" data-d="-1000">-1000</button>
+        <button data-stat="money" data-d="1000">+1000</button>
+        <button data-stat="money" data-d="-5000">-5000</button>
+        <button data-stat="money" data-d="5000">+5000</button>
+        <button data-stat="money" data-d="-10000">-1万</button>
+        <button data-stat="money" data-d="10000">+1万</button>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="action-btn" id="auctionBtn">&#127858; 拍卖品</button>
+      <button class="action-btn ghost" id="resetBtn">&#128260; 重置所有数据</button>
+    </div>
+
+  </main>
+</div>
+
+<div class="modal" id="auctionModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>&#127858; 第五幕 · 拍卖品</h3>
+      <button class="modal-close" id="closeAuction">&#10005;</button>
+    </div>
+    <div class="auction-grid" id="auctionGrid"></div>
+    <div class="auction-tools">
+      <button id="lightAll">全部点亮</button>
+      <button id="dimAll">全部点灭</button>
+      <button id="clearUsed">清除已用</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="pwdModal">
+  <div class="modal-box small">
+    <h3>&#128274; 输入解锁密码</h3>
+    <input type="password" id="pwdInput" placeholder="密码" maxlength="10">
+    <button id="pwdSubmit">解锁</button>
+    <p class="pwd-hint" id="pwdHint"></p>
+  </div>
+</div>
+
+<script src="./portraits.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
