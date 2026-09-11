@@ -13,24 +13,24 @@ const INITIAL = {
 const STORE_KEY = "zqys_save_v1";
 const UNLOCK_KEY = "zqys_unlock_v1";
 const AUCTION = [
-  {name:"琉璃盏", price:3000,  rank:"SSS"},
-  {name:"夜明珠", price:5000,  rank:"SSS"},
-  {name:"金丝甲", price:2800,  rank:"SS"},
-  {name:"紫玉簪", price:2200,  rank:"SS"},
-  {name:"雪莲膏", price:1800,  rank:"S"},
-  {name:"龙泉剑", price:1600,  rank:"S"},
-  {name:"沉香扇", price:1200,  rank:"S"},
-  {name:"翡翠镯", price:1000,  rank:"A"},
-  {name:"云锦缎", price:900,   rank:"A"},
-  {name:"青瓷瓶", price:700,   rank:"A"},
-  {name:"檀木盒", price:600,   rank:"B"},
-  {name:"桃花酿", price:400,   rank:"B"},
-  {name:"信鸽",   price:350,   rank:"B"},
-  {name:"密信",   price:200,   rank:"B"},
-  {name:"银票",   price:150,   rank:"B"},
-  {name:"药囊",   price:120,   rank:"B"},
-  {name:"香囊",   price:80,    rank:"B"},
-  {name:"胭脂",   price:50,    rank:"B"},
+  {name:"屠龙宝刀",   price:1500, rank:"B"},
+  {name:"毒丹",       price:4500, rank:"S"},
+  {name:"十全大补丹", price:1200, rank:"B"},
+  {name:"圣火令",     price:2200, rank:"A"},
+  {name:"南疆往来的书信", price:2000, rank:"A"},
+  {name:"火铳",       price:5500, rank:"SS"},
+  {name:"金钟罩",     price:2600, rank:"A"},
+  {name:"狐狸",       price:1800, rank:"?"},
+  {name:"鼓上蚤",     price:4200, rank:"S"},
+  {name:"水漫金山",   price:6000, rank:"SS"},
+  {name:"送子观音",   price:8000, rank:"SSS"},
+  {name:"玉玺",       price:7000, rank:"SS"},
+  {name:"皇后遗物",   price:2400, rank:"A"},
+  {name:"生锈的菜刀", price:300,  rank:"B"},
+  {name:"账本",       price:3800, rank:"S"},
+  {name:"倚天剑",     price:2300, rank:"A"},
+  {name:"八卦阵",     price:5800, rank:"SS"},
+  {name:"诗经",       price:500,  rank:"B"},
 ];
 
 let state, current = 0;
@@ -129,7 +129,7 @@ function showAuction() {
     return '<div class="auction-item '+(st==="on"?"on":"")+(st==="used"?" used":"")+'" data-i="'+i+'">'+
       '<div class="it-name">'+a.name+'</div>'+
       '<div class="it-price">'+fmtMoney(a.price)+'两</div>'+
-      '<div class="it-rank rank-'+a.rank+'">'+a.rank+'</div>'+
+      '<div class="it-rank '+(/^[A-Z0-9]+$/.test(a.rank)?"rank-"+a.rank:"rank-unknown")+'">'+(a.rank||"?")+'</div>'+
     '</div>';
   }).join("");
   modal.classList.add("show");

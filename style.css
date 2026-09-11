@@ -102,7 +102,7 @@ body{
 .auction-item.on{ background:linear-gradient(180deg,#d4af5a,#c89a3a); color:#fff; border-color:#a87820; }
 .auction-item.on .it-price,.auction-item.on .it-rank{ color:#fff; }
 .auction-item.used{ opacity:.45; }
-.rank-SSS{color:#b03030;} .rank-SS{color:#c06020;} .rank-S{color:#c8a44d;} .rank-A{color:#4a7a3a;} .rank-B{color:#5a6a8a;}
+.rank-SSS{color:#b03030;} .rank-SS{color:#c06020;} .rank-S{color:#c8a44d;} .rank-A{color:#4a7a3a;} .rank-B{color:#5a6a8a;} .rank-{color:#5a6a8a;} .rank-unknown{color:#8a4a9a;font-weight:800;}
 .auction-tools{ display:flex; gap:8px; margin-top:14px; }
 .auction-tools button{ flex:1; padding:8px; border:1px solid var(--line); background:#fff; border-radius:9px; cursor:pointer; font-size:12px; }
 #pwdInput{ width:100%; padding:10px; border:1.5px solid var(--line); border-radius:9px; text-align:center; font-size:16px; margin:12px 0; }
